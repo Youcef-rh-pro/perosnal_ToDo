@@ -23,23 +23,35 @@ class note {
       `;
     }
   }
+  class noteList{
+  data=[]
+  render(){
+   const  getData= JSON.parse(localStorage.getItem('allNotes'))
+this.data.push(getData)
+    console.log(this.data)
+  }
+  }
   class app {
     constructor(){
-  
     this.notes = [];
     }
    noteGet() {
      const confirmation= document.getElementById("confirmAddNote")
+     const noteDescription = document.getElementById("notDescriptionInput").value;
+     const noteName = document.getElementById("noteNameInput").value;
        confirmation.addEventListener("click", () => {
-        const noteName = document.getElementById("noteNameInput").value;
-        const noteDescription = document.getElementById(
-          "notDescriptionInput").value;
-  
-        this.notes.push(new note(noteName, noteDescription));
-       return localStorage.setItem('allNotes',JSON.stringify(this.notes) )
+     
+         $('#addNoteModal').modal('hide');
+         
+         //  document.getElementById('noteNameInput').value = '';
+         // document.getElementById('notDescriptionInput').value = '';
+         this.notes.push(new note(noteName, noteDescription));
+        return localStorage.setItem('allNotes',JSON.stringify(this.notes) )
       });
+  
     }
   }
   const myApp=new app()
-  myApp.noteGet();
-  console.log('hello worl')
+  myApp.noteGet()
+const mydata= new noteList
+mydata.render()
