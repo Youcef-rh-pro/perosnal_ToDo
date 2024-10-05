@@ -1,57 +1,74 @@
 
-
 class note {
-    constructor(title, description, importance, duDate) {
-      this.title = title;
-      this.description = description;
-      this.importance = importance;
-    }
+  constructor(title, description, importance, duDate) {
+    this.title = title;
+    this.description = description;
+    this.importance = importance;
   }
-  class noteItems {
-    constructor(note) {
-      note;
-    }
-    render() {
-      const noteEl = document.createElement("li");
-      noteEl.className = "note-item";
-      noteEl.innerHTML = `
-      <div >
-      <h2>${this.note.title}</h2>
-      <h3>${this.note.description}</h3>
-      <button>delete</button>
-      </div>
-      `;
-    }
+render() {
+    const noteEl = document.createElement("li");
+    noteEl.className = "note-item";
+    noteEl.innerHTML = `
+    <div >
+    <h2>${this.title}</h2>
+    <h3>${this.description}</h3>
+    <button>delete</button>
+    </div>
+    `;
+    return noteEl
+}}
+class noteItems {
+  render() {
+    const noteEl = document.createElement("li");
+    noteEl.className = "note-item";
+    noteEl.innerHTML = `
+    <div >
+    <h2>${this.title}</h2>
+    <h3>${this.description}</h3>
+    <button>delete</button>
+    </div>
+    `;
+    return noteEl
+}
+  
   }
-  class noteList{
-  data=[]
-  render(){
-   const  getData= JSON.parse(localStorage.getItem('allNotes'))
-this.data.push(getData)
-    console.log(this.data)
-  }
-  }
-  class app {
-    constructor(){
-    this.notes = [];
-    }
-   noteGet() {
-     const confirmation= document.getElementById("confirmAddNote")
+
+class noteList{
+
+render(notes){
+//  const  getData= JSON.parse(localStorage.getItem('allNotes'))
+const noteGrid =document.getElementById("noteGrid")
+noteGrid.innerHTML=''
+// const noteItem = new noteItems
+  notes.forEach(element => {
+    noteGrid.append(newNote.render(element))
+  })
+}
+}
+class app {
+
+  
+  noteGet() {
+    
+  const  notes = [];const mydata= new noteList 
+   const confirmation= document.getElementById("confirmAddNote")
+   confirmation.addEventListener("click", () => {
      const noteDescription = document.getElementById("notDescriptionInput").value;
      const noteName = document.getElementById("noteNameInput").value;
-       confirmation.addEventListener("click", () => {
+   
+       
+       notes.push({noteName, noteDescription});
+       localStorage.setItem('allNotes',JSON.stringify(notes) )
      
-         $('#addNoteModal').modal('hide');
-         
-         //  document.getElementById('noteNameInput').value = '';
-         // document.getElementById('notDescriptionInput').value = '';
-         this.notes.push(new note(noteName, noteDescription));
-        return localStorage.setItem('allNotes',JSON.stringify(this.notes) )
+        mydata.render(notes)
+       $('#addNoteModal').modal('hide');
+       document.getElementById('noteNameInput').value = '';
+       document.getElementById('notDescriptionInput').value = '';
       });
-  
+      
+     
     }
   }
   const myApp=new app()
   myApp.noteGet()
-const mydata= new noteList
-mydata.render()
+ const newNote = new note
