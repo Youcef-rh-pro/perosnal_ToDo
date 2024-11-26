@@ -103,3 +103,5 @@ const myApp = new app();
 myApp.init();
 //TO DO add project logic that dynamicly work with local storage each project with its own storage
 // use init with passing the project name dynamicly
+
+//dynamiclyyyyyyyyyyyyyyyyyyyy
